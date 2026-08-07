@@ -7,6 +7,17 @@ function App() {
     <>
       <h1>Theme Creator</h1>
       // display colors here
+        <main>
+          <h1>Color Cards</h1>
+           {initialColors.map((color) => (
+              <Color
+              key={color.hex}
+              hex={color.hex}
+              role={color.role}
+              contrastText={color.contrastText}
+              />
+          ))}
+        </main>
     </>
   );
 }
