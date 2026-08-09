@@ -89,8 +89,10 @@ function handleSubmit(event) {
 
       <input
         type="color"
-        name="color"
         id="contrast-color"
+        // WRONG name="color"
+        name="contrastText"
+        // because ..{newColor.contrastText}
         value={newColor.contrastText}
         onChange={handleChange}
         // onChange={(event) =>
@@ -104,7 +106,9 @@ function handleSubmit(event) {
       <input
         type="text"
         id="contrast-text"
-        name="contrast-text"
+       // WRONG  name="contrast-text"
+        name="contrastText"
+        // because ..{newColor.contrastText}
         value={newColor.contrastText}
         onChange={handleChange}
         // onChange={(event) =>
