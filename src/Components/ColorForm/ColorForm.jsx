@@ -3,32 +3,45 @@ import { useState } from "react";
 // handle new Color form submission and pass the new color to the parent component
 // addColor is a prop, passed down from the parent component to handle the new color data
 // addColor specifically is a function that ColorForm receives from its parent (App).
-export default function ColorForm({ addColor }) {
+
+// export default function ColorForm({ addColor..add more props}
+export default function ColorForm({
+  addColor,
+  color,
+  onEdit,
+  onCancel,
+}) {
 // is destructuring the addColor prop.
 // as hook state? to hold the new color information
 // newColor      → the current state/value
 // setNewColor   → the function that changes that state
-  const [newColor, setNewColor] = useState({
+const [newColor, setNewColor] = useState(
+// operator
+  color || {
     role: "",
     hex: "#000000",
     contrastText: "#ffffff",
-  });
+  }
+);
 
 // handle Input change
 function handleChange(event) {
     const { name, value } = event.target;
-
+// setter Function with new Variable
     setNewColor((currentColor) => ({
       ...currentColor,
       [name]: value,
     }));
   }
 
-// handle form submission
+// handle form submission extended handling
 function handleSubmit(event) {
     event.preventDefault();
+    if (color){
+      onEdit(newColor)
+    }
  // call the addColor function passed down from the parent component with the new color data
-    addColor(newColor);
+    else addColor(newColor);
   }
 
   return (
@@ -120,7 +133,18 @@ function handleSubmit(event) {
         placeholder="#ffffff"
       />
 
-      <button type="submit">Add color</button>
+      <button 
+       // make the button/submit reusable
+      type="submit">
+        {color ? "Save" : "Add color"}</button> 
+        {color && (
+           // "If color exists, render this button."
+           // if (color) { // show Cancel button
+          // else .. Cancel now shown
+          <button type="button" onClick={onCancel}>
+            Cancel
+          </button>
+          )}
     </form>
   );
 }

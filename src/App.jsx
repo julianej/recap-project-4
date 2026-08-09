@@ -28,12 +28,25 @@ function App() {
   }
 
 // AUFGABE 04
-// handle child component Color' and edit color key = hex
-   function handleEditColor(hex) {
-    setColors((colors) => {
-      return colors.filter((color) => color.hex !== hex);
-    });
-  }
+// handle child edit component Color' and const updatedColor = (colors) => 
+   function handleEditColor(updatedColor) {
+      console.log(updatedColor);
+      setColors((colors) =>
+        colors.map((color) => 
+          //ARRAY colors represents through currnet item/color maps NEWARRAY updatedColors 
+          // color = current item
+
+          // const newColors = colors.map((color) => {
+          //   if (color.hex === oldHex) {
+          //   return updatedColor;
+          //  }
+          // });
+          color.hex === updatedColor.originalHex
+            ? updatedColor
+            : color
+        )
+      );
+    }
 
   return (
     <>

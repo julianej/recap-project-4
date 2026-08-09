@@ -42,12 +42,19 @@ export default function Color({ hex, role, contrastText, onDelete, onEdit }) {
        {isEditing && (
         <ColorForm
           color={{ role, hex, contrastText }}
-            onEdit={(updatedColor) => {
-              onEdit(updatedColor);
-              setIsEditing(false);
-            }}
+          onEdit={(updatedColor) => {
+            // You pass a function to the ColorForm component:
+            // inline callback function
+            onEdit({
+              ...updatedColor,
+              originalHex: hex,
+            });
+
+            setIsEditing(false);
+          }}
+          onCancel={() => setIsEditing(false)}
         />
-       )};
+       )}
     </div>
   );
 }
