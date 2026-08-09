@@ -1,51 +1,28 @@
-import { initialColors } from "./lib/colors";
-import Color from "./Components/Color/Color";
+import { initialColors } from "./lib/colors.js";
+import Color from "./Components/Color/Color.jsx";
+import ColorForm from "./Components/ColorForm/ColorForm.jsx";
+import { useState } from "react";
+
 import "./App.css";
 
 function App() {
+
+// creates a React state variable.
+// colors      → current value
+// setColors   → function to change the value
+  const [colors, setColors] = useState(initialColors);
+
+// handle child component ColorForm's new color submission
+  function handleAddColor(newColor) {
+    setColors((colors) => [newColor, ...colors]);
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
         <main>
-          <h1>Color Cards</h1>
-         <form>
-        <label for="role">Role</label>
-        <input
-          type="text"
-          id="role"
-          name="role"
-          placeholder="primary"
-        />
-
-        <label for="hex">Hex value</label>
-        <input
-          type="color"
-          id="hex-color"
-          name="hex-color"
-        />
-        <input
-          type="text"
-          id="hex"
-          name="hex"
-          placeholder="#ff0000"
-        />
-
-       <label for="contrast-text">Contrast text</label>
-        <input
-          type="color"
-          id="contrast-color"
-          name="contrast-color"
-        />
-        <input
-          type="text"
-          id="contrast-text"
-          name="contrast-text"
-          placeholder="#ffffff"
-        />
-
-        <button type="submit">Add color</button>
-      </form>
-           {initialColors.map((color) => (
+          <h2>Color Cards Overview</h2>
+           {colors.map((color) => (
               <Color
               key={color.hex}
               hex={color.hex}
@@ -54,6 +31,7 @@ function App() {
               />
           ))}
         </main>
+            <ColorForm addColor={handleAddColor} />
     </>
   );
 }
