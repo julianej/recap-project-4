@@ -13,10 +13,19 @@ export default function ColorForm({ addColor }) {
     contrastText: "#ffffff",
   });
 
-  // handle form submission
-  function handleSubmit(event) {
-    event.preventDefault();
+// handle Input change
+function handleChange(event) {
+    const { name, value } = event.target;
 
+    setNewColor((currentColor) => ({
+      ...currentColor,
+      [name]: value,
+    }));
+  }
+
+// handle form submission
+function handleSubmit(event) {
+    event.preventDefault();
  // call the onAddColor function passed down from the parent component with the new color data
     addColor(newColor);
   }
@@ -31,15 +40,15 @@ export default function ColorForm({ addColor }) {
         id="role"
         name="role"
         value={newColor.role}
+        onChange={handleChange}
         // When the input changes, run this function.
-        onChange={(event) =>
-        // event.target = the input
-        // event.target.value = what the user entered
-          setNewColor({
-            ...newColor,
-            role: event.target.value,
-          })
-        }
+        // onChange={(event) =>
+        // // event.target = the input
+        // // event.target.value = what the user entered
+        //   setNewColor({
+        //     ...newColor,
+        //     role: event.target.value,
+        //   })
         placeholder="primary"
       />
 
@@ -48,26 +57,29 @@ export default function ColorForm({ addColor }) {
       <input
         type="color"
         id="hex-color"
+        name="hex"
         value={newColor.hex}
-        onChange={(event) =>
-          setNewColor({
-            ...newColor,
-            hex: event.target.value,
-          })
-        }
+        onChange={handleChange}
+        // onChange={(event) =>
+        //   setNewColor({
+        //     ...newColor,
+        //     hex: event.target.value,
+        //   })
+        //}
       />
 
       <input
         type="text"
         id="hex"
         name="hex"
-        value={newColor.text}
-        onChange={(event) =>
-          setNewColor({
-            ...newColor,
-            text: event.target.value,
-          })
-        }
+        value={newColor.hex}
+        onChange={handleChange}
+        // onChange={(event) =>
+        //   setNewColor({
+        //     ...newColor,
+        //     hex: event.target.value,
+        //   })
+        // }
         placeholder="#ff0000"
       />
 
@@ -75,14 +87,16 @@ export default function ColorForm({ addColor }) {
 
       <input
         type="color"
+        name="color"
         id="contrast-color"
         value={newColor.contrastText}
-        onChange={(event) =>
-          setNewColor({
-            ...newColor,
-            contrastText: event.target.value,
-          })
-        }
+        onChange={handleChange}
+        // onChange={(event) =>
+        //   setNewColor({
+        //     ...newColor,
+        //     contrastText: event.target.value,
+        //   })
+        // }
       />
 
       <input
@@ -90,12 +104,13 @@ export default function ColorForm({ addColor }) {
         id="contrast-text"
         name="contrast-text"
         value={newColor.contrastText}
-        onChange={(event) =>
-          setNewColor({
-            ...newColor,
-            contrastText: event.target.value,
-          })
-        }
+        onChange={handleChange}
+        // onChange={(event) =>
+        //   setNewColor({
+        //     ...newColor,
+        //     contrastText: event.target.value,
+        //   })
+        // }
         placeholder="#ffffff"
       />
 
