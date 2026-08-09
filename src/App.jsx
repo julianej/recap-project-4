@@ -1,37 +1,50 @@
+import { useState } from "react";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
-import { useState } from "react";
 
 import "./App.css";
 
 function App() {
 
+// AUFGABE 01
 // creates a React state variable.
-// colors      → current value
+// colors      → current array value, state that can change
 // setColors   → function to change the value
   const [colors, setColors] = useState(initialColors);
 
+// AUFGABE 02
 // handle child component ColorForm's new color submission
   function handleAddColor(newColor) {
     setColors((colors) => [newColor, ...colors]);
   }
 
+// AUFGABE 03
+// handle child component Color' and delete color key = hex
+   function handleDeleteColor(hex) {
+    setColors((colors) => {
+      return colors.filter((color) => color.hex !== hex);
+    });
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
-        <main>
-          <h2>Color Cards Overview</h2>
-           {colors.map((color) => (
-              <Color
-              key={color.hex}
-              hex={color.hex}
-              role={color.role}
-              contrastText={color.contrastText}
-              />
-          ))}
-        </main>
-            <ColorForm addColor={handleAddColor} />
+       <main>
+        <h2>Color Cards Overview</h2>
+
+        {colors.map((color) => (
+          <Color
+            key={color.hex}
+            hex={color.hex}
+            role={color.role}
+            contrastText={color.contrastText}
+            onDelete={handleDeleteColor}
+          />
+        ))}
+      </main>
+
+      <ColorForm addColor={handleAddColor} />
     </>
   );
 }
