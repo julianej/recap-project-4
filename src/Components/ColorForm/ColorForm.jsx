@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 // handle new Color form submission and pass the new color to the parent component
-// onAddColor is a function passed down from the parent component to handle the new color data
+// addColor is a prop, passed down from the parent component to handle the new color data
+// addColor specifically is a function that ColorForm receives from its parent (App).
 export default function ColorForm({ addColor }) {
-
-// hook state to hold the new color information
+// is destructuring the addColor prop.
+// as hook state? to hold the new color information
 // newColor      → the current state/value
 // setNewColor   → the function that changes that state
   const [newColor, setNewColor] = useState({
@@ -26,7 +27,7 @@ function handleChange(event) {
 // handle form submission
 function handleSubmit(event) {
     event.preventDefault();
- // call the onAddColor function passed down from the parent component with the new color data
+ // call the addColor function passed down from the parent component with the new color data
     addColor(newColor);
   }
 
@@ -40,6 +41,7 @@ function handleSubmit(event) {
         id="role"
         name="role"
         value={newColor.role}
+
         onChange={handleChange}
         // When the input changes, run this function.
         // onChange={(event) =>

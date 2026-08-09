@@ -27,6 +27,14 @@ function App() {
     });
   }
 
+// AUFGABE 04
+// handle child component Color' and edit color key = hex
+   function handleEditColor(hex) {
+    setColors((colors) => {
+      return colors.filter((color) => color.hex !== hex);
+    });
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
@@ -40,6 +48,7 @@ function App() {
             role={color.role}
             contrastText={color.contrastText}
             onDelete={handleDeleteColor}
+            onEdit={handleEditColor}
           />
         ))}
       </main>

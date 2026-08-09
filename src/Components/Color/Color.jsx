@@ -1,10 +1,14 @@
 import "./Color.css";
 import { useState } from "react";
+import ColorForm from "../ColorForm/ColorForm.jsx";
 
-export default function Color({ hex, role, contrastText, onDelete }) {
+export default function Color({ hex, role, contrastText, onDelete, onEdit }) {
 
   //handle Delete in conditional rendering; if (showConfirmation) {condition && <Something />}
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // const [editedColor, setEditedColor] = useState({ });
 
   return (
     <div className="color-card" style={{ backgroundColor: hex }}>
@@ -31,6 +35,19 @@ export default function Color({ hex, role, contrastText, onDelete }) {
           </button>
         </div>
       )}
+
+      <button onClick={() => setIsEditing(true)}>
+        Edit
+      </button>
+       {isEditing && (
+        <ColorForm
+          color={{ role, hex, contrastText }}
+            onEdit={(updatedColor) => {
+              onEdit(updatedColor);
+              setIsEditing(false);
+            }}
+        />
+       )};
     </div>
   );
 }
