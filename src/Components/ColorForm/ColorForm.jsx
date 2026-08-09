@@ -1,50 +1,105 @@
-export default function ColorForm() {
+import { useState } from "react";
 
-    const [newColor, setNewColor] = useState({
-        role: "primary",
-        hex: "#000000",
-        contrastText: "#ffffff",
-    });
+// handle new Color form submission and pass the new color to the parent component
+// onAddColor is a function passed down from the parent component to handle the new color data
+export default function ColorForm({ addColor }) {
 
-    return (
-        <form>
-            <h2>Add a Color Card</h2>
-            <label htmlFor="role">Role</label>
-            <input
-                type="text"
-                id="role"
-                name="role"
-                placeholder="primary"
-            />
+// hook state to hold the new color information
+// newColor      → the current state/value
+// setNewColor   → the function that changes that state
+  const [newColor, setNewColor] = useState({
+    role: "",
+    hex: "#000000",
+    contrastText: "#ffffff",
+  });
 
-            <label htmlFor="hex">Hex value</label>
+  // handle form submission
+  function handleSubmit(event) {
+    event.preventDefault();
 
-            <input
-                type="color"
-                id="hex-color"
-                name="hex-color"
-            />
-            <input
-                type="text"
-                id="hex"
-                name="hex"
-                placeholder="#ff0000"
-            />
+ // call the onAddColor function passed down from the parent component with the new color data
+    addColor(newColor);
+  }
 
-            <label htmlFor="contrast-text">Contrast text</label>
-            <input
-                type="color"
-                id="contrast-color"
-                name="contrast-color"
-            />
-            <input
-                type="text"
-                id="contrast-text"
-                name="contrast-text"
-                placeholder="#ffffff"
-            />
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Add a Color Card</h2>
 
-            <button type="submit">Add color</button>
-        </form>
-    );
+      <label htmlFor="role">Role</label>
+      <input
+        type="text"
+        id="role"
+        name="role"
+        value={newColor.role}
+        // When the input changes, run this function.
+        onChange={(event) =>
+        // event.target = the input
+        // event.target.value = what the user entered
+          setNewColor({
+            ...newColor,
+            role: event.target.value,
+          })
+        }
+        placeholder="primary"
+      />
+
+      <label htmlFor="hex">Hex value</label>
+
+      <input
+        type="color"
+        id="hex-color"
+        value={newColor.hex}
+        onChange={(event) =>
+          setNewColor({
+            ...newColor,
+            hex: event.target.value,
+          })
+        }
+      />
+
+      <input
+        type="text"
+        id="hex"
+        name="hex"
+        value={newColor.text}
+        onChange={(event) =>
+          setNewColor({
+            ...newColor,
+            text: event.target.value,
+          })
+        }
+        placeholder="#ff0000"
+      />
+
+      <label htmlFor="contrast-text">Contrast text</label>
+
+      <input
+        type="color"
+        id="contrast-color"
+        value={newColor.contrastText}
+        onChange={(event) =>
+          setNewColor({
+            ...newColor,
+            contrastText: event.target.value,
+          })
+        }
+      />
+
+      <input
+        type="text"
+        id="contrast-text"
+        name="contrast-text"
+        value={newColor.contrastText}
+        onChange={(event) =>
+          setNewColor({
+            ...newColor,
+            contrastText: event.target.value,
+          })
+        }
+        placeholder="#ffffff"
+      />
+
+      <button type="submit">Add color</button>
+    </form>
+  );
 }
