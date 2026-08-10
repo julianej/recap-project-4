@@ -16,7 +16,6 @@ function App() {
   const [colors, setColors] = useState(initialColors);
 
 // AUFGABE 02
-// handle child component ColorForm's new color submission
   function handleAddColor(newColor) {
     setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
   }
@@ -30,19 +29,9 @@ function App() {
   }
 
 // AUFGABE 04
-// handle child edit component Color' and const updatedColor = (colors) => 
    function handleEditColor(updatedColor) {
-      console.log(updatedColor);
       setColors((colors) =>
         colors.map((color) => 
-          //ARRAY colors represents through currnet item/color maps NEWARRAY updatedColors 
-          // color = current item
-
-          // const newColors = colors.map((color) => {
-          //   if (color.hex === oldHex) {
-          //   return updatedColor;
-          //  }
-          // });
           color.id === updatedColor.id
             ? updatedColor
             : color
@@ -58,6 +47,7 @@ function App() {
            {colors.map((color) => (
               <Color
               key={color.id}
+              id={color.id}
               hex={color.hex}
               role={color.role}
               contrastText={color.contrastText}

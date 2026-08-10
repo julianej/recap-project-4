@@ -1,9 +1,8 @@
 import { useState } from "react";
-import ColorInput from "../Input/Input.jsx";
+import ColorInput from "../ColorInput/ColorInput.jsx";
 
 // handle new Color form submission and pass the new color to the parent component
 // onAddColor is a function passed down from the parent component to handle the new color data
-// onXYZ for props passed to a component;
 // export default function ColorForm({ addColor..add more props}
 export default function ColorForm({
   onAddColor,
@@ -11,15 +10,11 @@ export default function ColorForm({
   onEdit,
   onCancel,
 }) {
-// is destructuring the addColor prop.
-// as hook state? to hold the new color information
+
 // newColor      → the current state/value
 // setNewColor   → the function that changes that state
-  const [newColor, setNewColor] = useState({
-    role: "primary",
-    hex: "#000000",
-    contrastText: "#ffffff",
-  }
+  const [newColor, setNewColor] = useState(
+  color ?? { role: "primary", hex: "#000000", contrastText: "#ffffff" }
 );
 
 // handle Input change
@@ -93,12 +88,10 @@ function handleSubmit(event) {
 
       <button 
        // make the button/submit reusable
+       // show cancel only when this condition && is true.
       type="submit">
         {color ? "Save" : "Add color"}</button> 
         {color && (
-           // "If color exists, render this button."
-           // if (color) { // show Cancel button
-          // else .. Cancel now shown
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
