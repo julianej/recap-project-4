@@ -40,7 +40,8 @@ function handleSubmit(event) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Add a Color Card</h2>
+      <h2>{color ? "Edit Color Card" : "Add a Color Card"}</h2>
+
        <ColorInput
         label="Role"
         id="role"

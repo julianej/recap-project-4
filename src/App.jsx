@@ -22,9 +22,9 @@ function App() {
 
 // AUFGABE 03
 // handle child component Color' and delete color key = hex
-   function handleDeleteColor(hex) {
+   function handleDeleteColor(id) {
     setColors((colors) => {
-      return colors.filter((color) => color.hex !== hex);
+      return colors.filter((color) => color.id !== id);
     });
   }
 
@@ -44,7 +44,9 @@ function App() {
       <h1>Theme Creator</h1>
         <main>
           <h2>Color Cards Overview</h2>
-           {colors.map((color) => (
+          {colors.length === 0
+              ? <p>No colors yet, add one to get started!</p>
+              : colors.map((color) => (
               <Color
               key={color.id}
               id={color.id}
