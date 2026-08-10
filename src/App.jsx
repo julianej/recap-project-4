@@ -2,7 +2,6 @@ import { useState } from "react";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
-import { useState } from "react";
 import { uid } from "uid";
 
 import "./App.css";
@@ -44,7 +43,7 @@ function App() {
           //   return updatedColor;
           //  }
           // });
-          color.hex === updatedColor.originalHex
+          color.id === updatedColor.id
             ? updatedColor
             : color
         )
@@ -62,6 +61,8 @@ function App() {
               hex={color.hex}
               role={color.role}
               contrastText={color.contrastText}
+              onDelete={handleDeleteColor}
+              onEdit={handleEditColor}
               />
           ))}
         </main>

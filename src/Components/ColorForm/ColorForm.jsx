@@ -1,14 +1,12 @@
 import { useState } from "react";
-import Input from "../Input/Input.jsx";
+import ColorInput from "../Input/Input.jsx";
 
 // handle new Color form submission and pass the new color to the parent component
 // onAddColor is a function passed down from the parent component to handle the new color data
 // onXYZ for props passed to a component;
-export default function ColorForm({ onAddColor }) {
-
 // export default function ColorForm({ addColor..add more props}
 export default function ColorForm({
-  addColor,
+  onAddColor,
   color,
   onEdit,
   onCancel,
@@ -38,13 +36,17 @@ function handleChange(event) {
 function handleSubmit(event) {
     event.preventDefault();
  // call the onAddColor function passed down from the parent component with the new color data
+  if (color) {
+    onEdit(newColor);
+  } else {
     onAddColor(newColor);
   }
+}
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add a Color Card</h2>
-       <Input
+       <ColorInput
         label="Role"
         id="role"
         name="role"
@@ -102,5 +104,4 @@ function handleSubmit(event) {
           </button>
           )}
     </form>
-  );
-}
+  )}
