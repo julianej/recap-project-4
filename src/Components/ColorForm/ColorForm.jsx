@@ -41,18 +41,9 @@ function handleSubmit(event) {
         name="role"
         value={newColor.role}
         onChange={handleChange}
-        // When the input changes, run this function.
-        // onChange={(event) =>
-        // // event.target = the input
-        // // event.target.value = what the user entered
-        //   setNewColor({
-        //     ...newColor,
-        //     role: event.target.value,
-        //   })
-        placeholder="primary"
       />
 
-      <Input
+      <ColorInput
         label="Hex Value"
         id="hex-color"
         name="hex"
@@ -61,7 +52,8 @@ function handleSubmit(event) {
         onChange={handleChange}
       />
 
-      <Input
+      <ColorInput
+        label="Hex Value Color"
         id="hex"
         name="hex"
         value={newColor.hex}
@@ -69,8 +61,8 @@ function handleSubmit(event) {
         placeholder="#ff0000"
       />
 
-      <Input
-        label="Contrast text"
+      <ColorInput
+        label="Contrast Text"
         id="contrast-color"
         name="contrastText"
         type="color"
@@ -78,33 +70,14 @@ function handleSubmit(event) {
         onChange={handleChange}
       />
 
-       <Input
+       <ColorInput
+        label="Contrast Text Color"
         id="contrast-text"
         name="contrastText"
         value={newColor.contrastText}
         onChange={handleChange}
         placeholder="#ffffff"
       />
-
-
-      {/* example IMPORT INPUT COMPONENT
-      
-      <label htmlFor="contrast-color" className="visually-hidden">Contrast text color picker</label>
-
-      <input
-        type="text"
-        id="contrast-text"
-        name="contrastText"
-        value={newColor.contrastText}
-        onChange={handleChange}
-        // onChange={(event) =>
-        //   setNewColor({
-        //     ...newColor,
-        //     contrastText: event.target.value,
-        //   })
-        // }
-        placeholder="#ffffff"
-      /> */}
 
       <button type="submit">Add color</button>
     </form>
