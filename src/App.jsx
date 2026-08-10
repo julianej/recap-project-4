@@ -7,14 +7,16 @@ import "./App.css";
 
 function App() {
 
-// creates a React state variable.
-// colors      → current value
-// setColors   → function to change the value
+/*
+  creates a React state variable.
+  colors      → current value
+  setColors   → function to change the value
+*/
   const [colors, setColors] = useState(initialColors);
 
 // handle child component ColorForm's new color submission
   function handleAddColor(newColor) {
-    setColors((colors) => [newColor, ...colors]);
+    setColors((colors) => [{ id: crypto.randomUUID(), ...newColor }, ...colors]);
   }
 
   return (
@@ -31,7 +33,7 @@ function App() {
               />
           ))}
         </main>
-            <ColorForm addColor={handleAddColor} />
+            <ColorForm onAddColor={handleAddColor} />
     </>
   );
 }
