@@ -38,15 +38,21 @@ function handleChange(event) {
 function handleSubmit(event) {
     event.preventDefault();
     if (color){
-      onEdit(newColor)
+      onEdit({
+        ...newColor,
+        originalHex: color.hex,
+      });
     }
  // call the addColor function passed down from the parent component with the new color data
     else addColor(newColor);
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add a Color Card</h2>
+   return (
+  <form onSubmit={handleSubmit}>
+
+    <h2>
+      {color ? "Edit Color Card" : "Add a Color Card"}
+    </h2>
 
       <label htmlFor="role">Role</label>
       <input
