@@ -24,7 +24,7 @@ function App() {
           <h2>Color Cards Overview</h2>
            {colors.map((color) => (
               <Color
-              key={color.hex}
+              key={color.id}
               hex={color.hex}
               role={color.role}
               contrastText={color.contrastText}
