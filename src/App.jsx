@@ -1,14 +1,31 @@
-import { initialColors } from "./lib/colors";
-import Color from "./Components/Color/Color";
+import { initialColors } from "./lib/colors.js";
+import Color from "./Components/Color/Color.jsx";
+import ColorForm from "./Components/ColorForm/ColorForm.jsx";
+import { useState } from "react";
+import { uid } from "uid";
+
 import "./App.css";
 
 function App() {
+
+/*
+  creates a React state variable.
+  colors      → current value
+  setColors   → function to change the value
+*/
+  const [colors, setColors] = useState(initialColors);
+
+// handle child component ColorForm's new color submission
+  function handleAddColor(newColor) {
+    setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
         <main>
-          <h2>Color Cards</h2>
-           {initialColors.map((color) => (
+          <h2>Color Cards Overview</h2>
+           {colors.map((color) => (
               <Color
               key={color.id}
               hex={color.hex}
@@ -17,6 +34,7 @@ function App() {
               />
           ))}
         </main>
+            <ColorForm onAddColor={handleAddColor} />
     </>
   );
 }
