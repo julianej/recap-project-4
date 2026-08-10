@@ -16,9 +16,9 @@ export default function ColorForm({
 // newColor      → the current state/value
 // setNewColor   → the function that changes that state
 const [newColor, setNewColor] = useState(
-// operator
+// edit color operator | and color Object
   color || {
-    role: "",
+    role: "color role",
     hex: "#000000",
     contrastText: "#ffffff",
   }
@@ -64,7 +64,7 @@ function handleSubmit(event) {
         //     ...newColor,
         //     role: event.target.value,
         //   })
-        placeholder="primary"
+        placeholder="color role"
       />
 
       <label htmlFor="hex">Hex value</label>
