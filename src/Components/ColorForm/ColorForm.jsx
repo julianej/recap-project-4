@@ -1,27 +1,20 @@
 import { useState } from "react";
+import ColorInput from "../ColorInput/ColorInput.jsx";
 
 // handle new Color form submission and pass the new color to the parent component
-// addColor is a prop, passed down from the parent component to handle the new color data
-// addColor specifically is a function that ColorForm receives from its parent (App).
-
+// onAddColor is a function passed down from the parent component to handle the new color data
 // export default function ColorForm({ addColor..add more props}
 export default function ColorForm({
-  addColor,
+  onAddColor,
   color,
   onEdit,
   onCancel,
 }) {
-// is destructuring the addColor prop.
-// as hook state? to hold the new color information
+
 // newColor      → the current state/value
 // setNewColor   → the function that changes that state
-const [newColor, setNewColor] = useState(
-// edit color operator | and color Object
-  color || {
-    role: "color role",
-    hex: "#000000",
-    contrastText: "#ffffff",
-  }
+  const [newColor, setNewColor] = useState(
+  color ?? { role: "primary", hex: "#000000", contrastText: "#ffffff" }
 );
 
 // handle Input change
@@ -37,6 +30,7 @@ function handleChange(event) {
 // handle form submission extended handling
 function handleSubmit(event) {
     event.preventDefault();
+<<<<<<< HEAD
     if (color){
       onEdit({
         ...newColor,
@@ -45,112 +39,83 @@ function handleSubmit(event) {
     }
  // call the addColor function passed down from the parent component with the new color data
     else addColor(newColor);
+=======
+ // call the onAddColor function passed down from the parent component with the new color data
+  if (color) {
+    onEdit(newColor);
+  } else {
+    onAddColor(newColor);
+>>>>>>> feature-edit-color
   }
+}
 
+<<<<<<< HEAD
    return (
   <form onSubmit={handleSubmit}>
 
     <h2>
       {color ? "Edit Color Card" : "Add a Color Card"}
     </h2>
+=======
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>{color ? "Edit Color Card" : "Add a Color Card"}</h2>
+>>>>>>> feature-edit-color
 
-      <label htmlFor="role">Role</label>
-      <input
-        type="text"
+       <ColorInput
+        label="Role"
         id="role"
         name="role"
         value={newColor.role}
 
         onChange={handleChange}
-        // When the input changes, run this function.
-        // onChange={(event) =>
-        // // event.target = the input
-        // // event.target.value = what the user entered
-        //   setNewColor({
-        //     ...newColor,
-        //     role: event.target.value,
-        //   })
-        placeholder="color role"
       />
 
-      <label htmlFor="hex">Hex value</label>
-
-      <input
-        type="color"
+      <ColorInput
+        label="Hex Value"
         id="hex-color"
         name="hex"
+        type="color"
         value={newColor.hex}
         onChange={handleChange}
-        // onChange={(event) =>
-        //   setNewColor({
-        //     ...newColor,
-        //     hex: event.target.value,
-        //   })
-        //}
       />
 
-      <input
-        type="text"
+      <ColorInput
+        label="Hex Value Color"
         id="hex"
         name="hex"
         value={newColor.hex}
         onChange={handleChange}
-        // onChange={(event) =>
-        //   setNewColor({
-        //     ...newColor,
-        //     hex: event.target.value,
-        //   })
-        // }
         placeholder="#ff0000"
       />
 
-      <label htmlFor="contrast-text">Contrast text</label>
-
-      <input
-        type="color"
+      <ColorInput
+        label="Contrast Text"
         id="contrast-color"
-        // WRONG name="color"
         name="contrastText"
-        // because ..{newColor.contrastText}
+        type="color"
         value={newColor.contrastText}
         onChange={handleChange}
-        // onChange={(event) =>
-        //   setNewColor({
-        //     ...newColor,
-        //     contrastText: event.target.value,
-        //   })
-        // }
       />
 
-      <input
-        type="text"
+       <ColorInput
+        label="Contrast Text Color"
         id="contrast-text"
-       // WRONG  name="contrast-text"
         name="contrastText"
-        // because ..{newColor.contrastText}
         value={newColor.contrastText}
         onChange={handleChange}
-        // onChange={(event) =>
-        //   setNewColor({
-        //     ...newColor,
-        //     contrastText: event.target.value,
-        //   })
-        // }
         placeholder="#ffffff"
       />
 
       <button 
        // make the button/submit reusable
+       // show cancel only when this condition && is true.
       type="submit">
         {color ? "Save" : "Add color"}</button> 
         {color && (
-           // "If color exists, render this button."
-           // if (color) { // show Cancel button
-          // else .. Cancel now shown
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
           )}
     </form>
-  );
-}
+  )}

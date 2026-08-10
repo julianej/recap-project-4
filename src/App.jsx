@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
+import { uid } from "uid";
 
 import "./App.css";
 
 function App() {
 
+<<<<<<< HEAD
 // AUFGABE 01
 // creates a React state variable.
 // colors      → current array value, state that can change
@@ -26,36 +28,33 @@ function App() {
   useEffect(() => {
     localStorage.setItem("colors", JSON.stringify(colors));
   }, [colors]);
+=======
+/*
+  creates a React state variable.
+  colors      → current value
+  setColors   → function to change the value
+*/
+  const [colors, setColors] = useState(initialColors);
+>>>>>>> feature-edit-color
 
 // AUFGABE 02
-// handle child component ColorForm's new color submission
   function handleAddColor(newColor) {
-    setColors((colors) => [newColor, ...colors]);
+    setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
   }
 
 // AUFGABE 03
 // handle child component Color' and delete color key = hex
-   function handleDeleteColor(hex) {
+   function handleDeleteColor(id) {
     setColors((colors) => {
-      return colors.filter((color) => color.hex !== hex);
+      return colors.filter((color) => color.id !== id);
     });
   }
 
 // AUFGABE 04
-// handle child edit component Color' and const updatedColor = (colors) => 
    function handleEditColor(updatedColor) {
-      console.log(updatedColor);
       setColors((colors) =>
         colors.map((color) => 
-          //ARRAY colors represents through currnet item/color maps NEWARRAY updatedColors 
-          // color = current item
-
-          // const newColors = colors.map((color) => {
-          //   if (color.hex === oldHex) {
-          //   return updatedColor;
-          //  }
-          // });
-          color.hex === updatedColor.originalHex
+          color.id === updatedColor.id
             ? updatedColor
             : color
         )
@@ -66,22 +65,23 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
-       <main>
-        <h2>Color Cards Overview</h2>
-
-        {colors.map((color) => (
-          <Color
-            key={color.hex}
-            hex={color.hex}
-            role={color.role}
-            contrastText={color.contrastText}
-            onDelete={handleDeleteColor}
-            onEdit={handleEditColor}
-          />
-        ))}
-      </main>
-
-      <ColorForm addColor={handleAddColor} />
+        <main>
+          <h2>Color Cards Overview</h2>
+          {colors.length === 0
+              ? <p>No colors yet, add one to get started!</p>
+              : colors.map((color) => (
+              <Color
+              key={color.id}
+              id={color.id}
+              hex={color.hex}
+              role={color.role}
+              contrastText={color.contrastText}
+              onDelete={handleDeleteColor}
+              onEdit={handleEditColor}
+              />
+          ))}
+        </main>
+            <ColorForm onAddColor={handleAddColor} />
     </>
   );
 }

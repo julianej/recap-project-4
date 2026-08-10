@@ -2,59 +2,57 @@ import "./Color.css";
 import { useState } from "react";
 import ColorForm from "../ColorForm/ColorForm.jsx";
 
-export default function Color({ hex, role, contrastText, onDelete, onEdit }) {
+export default function Color({ id, hex, role, contrastText, onDelete, onEdit }) {
 
-  //handle Delete in conditional rendering; if (showConfirmation) {condition && <Something />}
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-
-  // const [editedColor, setEditedColor] = useState({ });
+  //handle Delete below in conditional rendering; if (showConfirmation) {condition && <Something />}
+  // shows a confirmation prompt before deleting
+  // const [showConfirmation, setShowConfirmation] = useState(false);
+  const [activeAction, setActiveAction] = useState(null);
 
   return (
     <div className="color-card" style={{ backgroundColor: hex }}>
-      <h2>{hex}</h2>
-      <p>{role}</p>
+      <h2 className="color-hex color-card-headline">{hex}</h2>
+      <p className="color-role" style={{ color: contrastText }}>{role}</p>
       <p className="color-contrast-text" style={{ color: contrastText }}>
         {contrastText}
       </p>
 
-      <button onClick={() => setShowConfirmation(true)}>
+      <button onClick={() => setActiveAction("delete")}>
         Delete
       </button>
 
-      {showConfirmation && (
-        <div>
+      <button onClick={() => setActiveAction("edit")}>
+        Edit
+      </button>
+
+      {activeAction === "delete" && (
+        <>
           <p>Are you sure you want to delete this color?</p>
 
-          <button onClick={() => onDelete(hex)}>
+          <button onClick={() => onDelete(id)}>
             Yes
           </button>
 
-          <button onClick={() => setShowConfirmation(false)}>
+          <button onClick={() => setActiveAction(null)}>
             No
           </button>
-        </div>
+        </>
       )}
-
-      <button onClick={() => setIsEditing(true)}>
-        Edit
-      </button>
-       {isEditing && (
+       {activeAction === "edit" && (
         <ColorForm
-          color={{ role, hex, contrastText }}
-          onEdit={(updatedColor) => {
-            // You pass a function to the ColorForm component:
-            // inline callback function
-            onEdit({
-              ...updatedColor,
-              originalHex: hex,
-            });
-
-            setIsEditing(false);
+          color={{
+            id,
+            role,
+            hex,
+            contrastText,
           }}
-          onCancel={() => setIsEditing(false)}
+          onEdit={(updatedColor) => {
+            onEdit(updatedColor);
+            setActiveAction(null);
+          }}
+          onCancel={() => setActiveAction(null)}
         />
-       )}
+      )}
     </div>
   );
 }
