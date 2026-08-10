@@ -2,6 +2,7 @@ import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
 import { useState } from "react";
+import { uid } from "uid";
 
 import "./App.css";
 
@@ -16,7 +17,7 @@ function App() {
 
 // handle child component ColorForm's new color submission
   function handleAddColor(newColor) {
-    setColors((colors) => [{ id: crypto.randomUUID(), ...newColor }, ...colors]);
+    setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
   }
 
   return (
