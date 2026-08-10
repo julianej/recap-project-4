@@ -8,14 +8,13 @@ import "./App.css";
 
 function App() {
 
-<<<<<<< HEAD
 // AUFGABE 01
 // creates a React state variable.
 // colors      → current array value, state that can change
 // setColors   → function to change the value
   const [colors, setColors] = useState(() => {
  // AUFGABE 01 + 05
-  // Check if colors are already saved in localStorage
+  // Check if colors are already saved in localStorage in console
   const savedColors = localStorage.getItem("colors");
 
   // If saved colors exist, use them.
@@ -26,20 +25,16 @@ function App() {
   // AUFGABE 05
   // Save colors to localStorage whenever colors changes.
   useEffect(() => {
+    console.log("Saving colors:", colors);
+
     localStorage.setItem("colors", JSON.stringify(colors));
   }, [colors]);
-=======
-/*
-  creates a React state variable.
-  colors      → current value
-  setColors   → function to change the value
-*/
-  const [colors, setColors] = useState(initialColors);
->>>>>>> feature-edit-color
 
 // AUFGABE 02
   function handleAddColor(newColor) {
-    setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
+    setColors((colors) => [{ id: uid(), ...newColor },
+    ...colors,
+  ]);
   }
 
 // AUFGABE 03
@@ -67,6 +62,7 @@ function App() {
       <h1>Theme Creator</h1>
         <main>
           <h2>Color Cards Overview</h2>
+          {/* condition ? valueIfTrue : valueIfFalse */}
           {colors.length === 0
               ? <p>No colors yet, add one to get started!</p>
               : colors.map((color) => (

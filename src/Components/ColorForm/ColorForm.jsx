@@ -30,37 +30,23 @@ function handleChange(event) {
 // handle form submission extended handling
 function handleSubmit(event) {
     event.preventDefault();
-<<<<<<< HEAD
     if (color){
       onEdit({
         ...newColor,
-        originalHex: color.hex,
+        id: color.id,
       });
     }
  // call the addColor function passed down from the parent component with the new color data
-    else addColor(newColor);
-=======
- // call the onAddColor function passed down from the parent component with the new color data
-  if (color) {
-    onEdit(newColor);
-  } else {
-    onAddColor(newColor);
->>>>>>> feature-edit-color
+    else onAddColor(newColor);
   }
-}
 
-<<<<<<< HEAD
+
    return (
   <form onSubmit={handleSubmit}>
 
     <h2>
       {color ? "Edit Color Card" : "Add a Color Card"}
     </h2>
-=======
-  return (
-    <form onSubmit={handleSubmit}>
-      <h2>{color ? "Edit Color Card" : "Add a Color Card"}</h2>
->>>>>>> feature-edit-color
 
        <ColorInput
         label="Role"
