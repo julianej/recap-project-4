@@ -6,12 +6,11 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
-      // display colors here
         <main>
-          <h1>Color Cards</h1>
+          <h2>Color Cards</h2>
            {initialColors.map((color) => (
               <Color
-              key={color.hex}
+              key={color.id}
               hex={color.hex}
               role={color.role}
               contrastText={color.contrastText}
