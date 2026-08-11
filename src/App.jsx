@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
@@ -8,16 +9,20 @@ import "./App.css";
 
 function App() {
 
-/*
-  creates a React state variable.
-  colors      → current value
-  setColors   → function to change the value
-*/
-  const [colors, setColors] = useState(initialColors);
+// AUFGABE 01
+// creates a React state variable.
+// colors      → current array value, state that can change
+// setColors   → function to change the value
+// const [colors, setColors] = useState(() => {
+
+ // AUFGABE 01 + 05
+  const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
 
 // AUFGABE 02
   function handleAddColor(newColor) {
-    setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
+    setColors((colors) => [{ id: uid(), ...newColor },
+    ...colors,
+  ]);
   }
 
 // AUFGABE 03
@@ -39,11 +44,13 @@ function App() {
       );
     }
 
+
   return (
     <>
       <h1>Theme Creator</h1>
         <main>
           <h2>Color Cards Overview</h2>
+          {/* condition ? valueIfTrue : valueIfFalse */}
           {colors.length === 0
               ? <p>No colors yet, add one to get started!</p>
               : colors.map((color) => (
