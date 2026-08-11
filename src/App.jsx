@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
@@ -12,23 +12,10 @@ function App() {
 // creates a React state variable.
 // colors      → current array value, state that can change
 // setColors   → function to change the value
-  const [colors, setColors] = useState(() => {
+// const [colors, setColors] = useState(() => {
+
  // AUFGABE 01 + 05
-  // Check if colors are already saved in localStorage in console
-  const savedColors = localStorage.getItem("colors");
-
-  // If saved colors exist, use them.
-  // Otherwise, use the initial colors.
-  return savedColors ? JSON.parse(savedColors) : initialColors;
-});
-
-  // AUFGABE 05
-  // Save colors to localStorage whenever colors changes.
-  useEffect(() => {
-    console.log("Saving colors:", colors);
-
-    localStorage.setItem("colors", JSON.stringify(colors));
-  }, [colors]);
+  const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
 
 // AUFGABE 02
   function handleAddColor(newColor) {
