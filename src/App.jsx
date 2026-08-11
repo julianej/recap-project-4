@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
