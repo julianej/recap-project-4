@@ -15,14 +15,40 @@ function App() {
 // const [colors, setColors] = useState(() => {
 
  // AUFGABE 01 + 05
-  const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
+const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
+
+async function checkContrast(color) {
+  const response = await fetch(
+    "https://aremycolorsaccessible.com/api/are-they",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        colors: [color.hex, color.contrastText],
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const result = await response.json();
+  return result;
+}
+
 
 // AUFGABE 02
-  function handleAddColor(newColor) {
-    setColors((colors) => [{ id: uid(), ...newColor },
+  async function handleAddColor(newColor) {
+  const contrastResult = await checkContrast(newColor);
+
+  setColors((colors) => [
+    {
+      id: uid(),
+      ...newColor,
+      contrastResult,
+    },
     ...colors,
   ]);
-  }
+}
 
 // AUFGABE 03
 // handle child component Color' and delete color key = hex
@@ -33,15 +59,21 @@ function App() {
   }
 
 // AUFGABE 04
-   function handleEditColor(updatedColor) {
-      setColors((colors) =>
-        colors.map((color) => 
-          color.id === updatedColor.id
-            ? updatedColor
-            : color
-        )
-      );
-    }
+   async function handleEditColor(updatedColor) {
+  const contrastResult = await checkContrast(updatedColor);
+
+  setColors((colors) =>
+    colors.map((color) =>
+      color.id === updatedColor.id
+        ? {
+            ...updatedColor,
+            contrastResult,
+          }
+        : color
+    )
+  );
+}
+
 
 
   return (
@@ -61,10 +93,11 @@ function App() {
               contrastText={color.contrastText}
               onDelete={handleDeleteColor}
               onEdit={handleEditColor}
+              contrastResult={color.contrastResult}
               />
           ))}
         </main>
-            <ColorForm onAddColor={handleAddColor} />
+          <ColorForm onAddColor={handleAddColor} />
     </>
   );
 }
