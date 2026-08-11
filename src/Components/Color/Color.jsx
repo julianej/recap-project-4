@@ -3,7 +3,15 @@ import { useState } from "react";
 import ColorForm from "../ColorForm/ColorForm.jsx";
 import CopyToClipboard from "../CopyToClipboard/CopyToClipboard.jsx";
 
-export default function Color({ id, hex, role, contrastText, onDelete, onEdit }) {
+export default function Color({
+  id,
+  hex,
+  role,
+  contrastText,
+  contrastResult,
+  onDelete,
+  onEdit,
+}) {
 
   //handle Delete below in conditional rendering; if (showConfirmation) {condition && <Something />}
   // shows a confirmation prompt before deleting
@@ -17,6 +25,16 @@ export default function Color({ id, hex, role, contrastText, onDelete, onEdit })
       <p className="color-contrast-text" style={{ color: contrastText }}>
         {contrastText}
       </p>
+
+      {contrastResult && (
+          // Only render the <p> if contrastResult exists.
+        <p>
+          {contrastResult.overall === "Yup"
+            ? "Contrast is Kinda ok"
+            : "Contrast is a Nope"}
+          {" "}({contrastResult.contrast}:1)
+        </p>
+      )}
 
       <button onClick={() => setActiveAction("delete")}>
         Delete
