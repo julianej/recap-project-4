@@ -17,23 +17,31 @@ function App() {
  // AUFGABE 01 + 05
 const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
 
-async function checkContrast(color) {
-  const response = await fetch(
-    "https://aremycolorsaccessible.com/api/are-they",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        colors: [color.hex, color.contrastText],
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
 
-  const result = await response.json();
-  return result;
+async function checkContrast(color) {
+  try {
+    const response = await fetch(
+      "https://aremycolorsaccessible.com/api/are-they",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          colors: [color.hex, color.contrastText],
+        }),
+      });
+
+    const result = await response.json();
+    return result;
+
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
+
+
 
 
 // AUFGABE 02

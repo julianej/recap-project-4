@@ -27,11 +27,12 @@ export default function Color({
       </p>
 
       {contrastResult && (
-        // Only render the <p> if contrastResult exists.
-        <p className="color-contrast-check" >
-          {contrastResult.isSufficient
-            ? "Contrast is sufficient"
-            : "Contrast is insufficient"}
+          // Only render the <p> if contrastResult exists.
+        <p>
+          {contrastResult.overall === "Yup"
+            ? "Contrast is Kinda ok"
+            : "Contrast is a Nope"}
+          {" "}({contrastResult.contrast}:1)
         </p>
       )}
 
