@@ -1,6 +1,7 @@
 import "./Color.css";
 import { useState } from "react";
 import ColorForm from "../ColorForm/ColorForm.jsx";
+import CopyToClipboard from "../CopyToClipboard/CopyToClipboard.jsx";
 
 export default function Color({ id, hex, role, contrastText, onDelete, onEdit }) {
 
@@ -24,6 +25,8 @@ export default function Color({ id, hex, role, contrastText, onDelete, onEdit })
       <button onClick={() => setActiveAction("edit")}>
         Edit
       </button>
+
+      <CopyToClipboard hex={hex} />
 
       {activeAction === "delete" && (
         <>
