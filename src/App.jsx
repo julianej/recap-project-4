@@ -17,21 +17,6 @@ function App() {
 
  // AUFGABE 01 + 05
   const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
-  // Check if colors are already saved in localStorage in console
-  // If saved colors exist, use them.
-  // Otherwise, use the initial colors.
-  
-  // const [colors, setColors] = useState(() => {
-  // const savedColors = localStorage.getItem("colors");
-  // return savedColors ? JSON.parse(savedColors) : initialColors;
-
-  // AUFGABE 05
-  // Save colors to localStorage whenever colors changes.
-  useEffect(() => {
-    // console.log("Saving colors:", colors);
-
-    localStorage.setItem("colors", JSON.stringify(colors));
-  }, [colors]);
 
 // AUFGABE 02
   function handleAddColor(newColor) {
