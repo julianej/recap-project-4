@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
-import { useState } from "react";
 import { uid } from "uid";
 
 import "./App.css";
@@ -15,22 +15,46 @@ function App() {
 */
   const [colors, setColors] = useState(initialColors);
 
-// handle child component ColorForm's new color submission
+// AUFGABE 02
   function handleAddColor(newColor) {
     setColors((colors) => [{  id: uid(), ...newColor }, ...colors]);
   }
+
+// AUFGABE 03
+// handle child component Color' and delete color key = hex
+   function handleDeleteColor(id) {
+    setColors((colors) => {
+      return colors.filter((color) => color.id !== id);
+    });
+  }
+
+// AUFGABE 04
+   function handleEditColor(updatedColor) {
+      setColors((colors) =>
+        colors.map((color) => 
+          color.id === updatedColor.id
+            ? updatedColor
+            : color
+        )
+      );
+    }
 
   return (
     <>
       <h1>Theme Creator</h1>
         <main>
           <h2>Color Cards Overview</h2>
-           {colors.map((color) => (
+          {colors.length === 0
+              ? <p>No colors yet, add one to get started!</p>
+              : colors.map((color) => (
               <Color
               key={color.id}
+              id={color.id}
               hex={color.hex}
               role={color.role}
               contrastText={color.contrastText}
+              onDelete={handleDeleteColor}
+              onEdit={handleEditColor}
               />
           ))}
         </main>

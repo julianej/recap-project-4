@@ -1,8 +1,14 @@
 import "./Color.css";
+import { useState } from "react";
+import ColorForm from "../ColorForm/ColorForm.jsx";
 
+export default function Color({ id, hex, role, contrastText, onDelete, onEdit }) {
 
-export default function Color({ hex, role, contrastText }) {
-  // returns div container with the color card information
+  //handle Delete below in conditional rendering; if (showConfirmation) {condition && <Something />}
+  // shows a confirmation prompt before deleting
+  // const [showConfirmation, setShowConfirmation] = useState(false);
+  const [activeAction, setActiveAction] = useState(null);
+
   return (
     <div className="color-card" style={{ backgroundColor: hex }}>
       <h2 className="color-hex color-card-headline">{hex}</h2>
@@ -10,6 +16,43 @@ export default function Color({ hex, role, contrastText }) {
       <p className="color-contrast-text" style={{ color: contrastText }}>
         {contrastText}
       </p>
+
+      <button onClick={() => setActiveAction("delete")}>
+        Delete
+      </button>
+
+      <button onClick={() => setActiveAction("edit")}>
+        Edit
+      </button>
+
+      {activeAction === "delete" && (
+        <>
+          <p>Are you sure you want to delete this color?</p>
+
+          <button onClick={() => onDelete(id)}>
+            Yes
+          </button>
+
+          <button onClick={() => setActiveAction(null)}>
+            No
+          </button>
+        </>
+      )}
+       {activeAction === "edit" && (
+        <ColorForm
+          color={{
+            id,
+            role,
+            hex,
+            contrastText,
+          }}
+          onEdit={(updatedColor) => {
+            onEdit(updatedColor);
+            setActiveAction(null);
+          }}
+          onCancel={() => setActiveAction(null)}
+        />
+      )}
     </div>
   );
 }
