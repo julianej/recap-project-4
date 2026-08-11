@@ -1,6 +1,9 @@
+import { useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import { initialColors } from "./lib/colors.js";
 import Color from "./Components/Color/Color.jsx";
+import ThemeSelector from "./Components/ThemeSelector/ThemeSelector.jsx";
+import ThemeForm from "./Components/ThemeForm/ThemeForm.jsx";
 import ColorForm from "./Components/ColorForm/ColorForm.jsx";
 import { uid } from "uid";
 
@@ -15,7 +18,43 @@ function App() {
 // const [colors, setColors] = useState(() => {
 
  // AUFGABE 01 + 05
-const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
+// const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
+
+const [themes, setThemes] = useLocalStorageState("themes", {
+  defaultValue: [
+    {
+      id: "default",
+      name: "Default Theme",
+      colors: initialColors,
+    },
+  ],
+});
+
+// AUFGABE 07
+
+function handleAddTheme(name) {
+  const newTheme = {
+    id: uid(),
+    name: name,
+    colors: [],
+  };
+
+  setThemes((themes) => [
+    ...themes,
+    newTheme,
+  ]);
+
+  setActiveThemeId(newTheme.id);
+}
+
+ const [activeThemeId, setActiveThemeId] = useState("default");
+
+  // Find the currently selected theme
+  // const found = array.find( (element) => element.id === 10);
+
+  const activeTheme = themes.find(
+    (theme) => theme.id === activeThemeId
+  );
 
 
 async function checkContrast(color) {
@@ -42,42 +81,78 @@ async function checkContrast(color) {
 }
 
 
-
-
 // AUFGABE 02
   async function handleAddColor(newColor) {
-  const contrastResult = await checkContrast(newColor);
+      const contrastResult = await checkContrast(newColor);
 
-  setColors((colors) => [
-    {
-      id: uid(),
-      ...newColor,
-      contrastResult,
-    },
-    ...colors,
-  ]);
+  setThemes((themes) =>
+    // themes is an array of theme objects.
+    themes.map((theme) =>
+      // "Is this the theme the user is currently looking at?"
+      theme.id === activeThemeId
+      // if not condition..update Object
+        ?  {
+            ...theme,
+            colors: [
+              {
+                id: uid(),
+                ...newColor,
+                contrastResult,
+              },
+              ...theme.colors,
+            ],
+          }
+          // else.. leave that theme unchanged
+        : theme
+    )
+  );
 }
 
 // AUFGABE 03
-// handle child component Color' and delete color key = hex
-   function handleDeleteColor(id) {
-    setColors((colors) => {
-      return colors.filter((color) => color.id !== id);
-    });
-  }
+
+// function handleDeleteColor(id) {
+//   setThemes((themes) => {
+//     return theme.colors.filter((color) => color.id !== id);
+//   });
+// }
+
+ function handleDeleteColor(id) {
+  setThemes((themes) =>
+    //map new array
+    themes.map((theme) =>
+      // item.id === condition false /true
+      theme.id === activeThemeId
+        ? {
+            ...theme,
+            colors: theme.colors.filter(
+              (color) => color.id !== id
+            ),
+          }
+        : theme
+    )
+  );
+}
 
 // AUFGABE 04
-   async function handleEditColor(updatedColor) {
-  const contrastResult = await checkContrast(updatedColor);
+async function handleEditColor(updatedColor) {
+const contrastResult = await checkContrast(updatedColor);
 
-  setColors((colors) =>
-    colors.map((color) =>
-      color.id === updatedColor.id
+  setThemes((themes) =>
+    themes.map((theme) =>
+      // Find the active theme === is it this ?
+      theme.id === activeThemeId
+        ? { ...theme,
+          // update array colors with map
+          colors: theme.colors.map((color) =>
+            // find the color being edited
+             color.id === updatedColor.id
         ? {
             ...updatedColor,
             contrastResult,
           }
         : color
+    ),}
+    : theme
     )
   );
 }
@@ -87,23 +162,30 @@ async function checkContrast(color) {
   return (
     <>
       <h1>Theme Creator</h1>
+       <ThemeSelector
+            themes={themes}
+            activeThemeId={activeThemeId}
+            onChange={setActiveThemeId}
+          />
+          <ThemeForm onAddTheme={handleAddTheme} />
         <main>
           <h2>Color Cards Overview</h2>
           {/* condition ? valueIfTrue : valueIfFalse */}
-          {colors.length === 0
-              ? <p>No colors yet, add one to get started!</p>
-              : colors.map((color) => (
-              <Color
-              key={color.id}
-              id={color.id}
-              hex={color.hex}
-              role={color.role}
-              contrastText={color.contrastText}
-              onDelete={handleDeleteColor}
-              onEdit={handleEditColor}
-              contrastResult={color.contrastResult}
-              />
-          ))}
+             {activeTheme.colors.length === 0 ? (
+              <p>No colors yet, add one to get started!</p>
+            ) : (
+              activeTheme.colors.map((color) => (
+                <Color
+                  key={color.id}
+                  id={color.id}
+                  hex={color.hex}
+                  role={color.role}
+                  contrastText={color.contrastText}
+                  onDelete={handleDeleteColor}
+                  onEdit={handleEditColor}
+                />
+              ))
+            )}
         </main>
           <ColorForm onAddColor={handleAddColor} />
     </>
