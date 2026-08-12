@@ -30,8 +30,16 @@ const [themes, setThemes] = useLocalStorageState("themes", {
   ],
 });
 
-// AUFGABE 07
 
+const [activeThemeId, setActiveThemeId] = useState("default");
+// Find the currently selected theme
+// const found = array.find( (element) => element.id === 10);
+const activeTheme = themes.find((theme) => 
+  theme.id === activeThemeId)
+//if nothing is found, use the first theme in the array; undefined ?? themes[0]
+?? themes[0];
+
+// AUFGABE 07
 function handleAddTheme(name) {
   const newTheme = {
     id: uid(),
@@ -47,14 +55,30 @@ function handleAddTheme(name) {
   setActiveThemeId(newTheme.id);
 }
 
- const [activeThemeId, setActiveThemeId] = useState("default");
+function handleDeleteTheme(id) {
+    if (id === "default") return;
 
-  // Find the currently selected theme
-  // const found = array.find( (element) => element.id === 10);
+    setThemes((themes) =>
+        themes.filter((theme) => theme.id !== id)
+    );
 
-  const activeTheme = themes.find(
-    (theme) => theme.id === activeThemeId
+    if (id === activeThemeId) {
+        setActiveThemeId("default");
+    }
+}
+
+function handleUpdateTheme(id, newName) {
+  setThemes((themes) =>
+    themes.map((theme) =>
+      theme.id === id
+        ? {
+            ...theme,
+            name: newName,
+          }
+        : theme
+    )
   );
+}
 
 
 async function checkContrast(color) {
@@ -163,11 +187,13 @@ const contrastResult = await checkContrast(updatedColor);
     <>
       <h1>Theme Creator</h1>
        <ThemeSelector
-            themes={themes}
-            activeThemeId={activeThemeId}
-            onChange={setActiveThemeId}
-          />
-          <ThemeForm onAddTheme={handleAddTheme} />
+          themes={themes}
+          activeThemeId={activeThemeId}
+          onChange={setActiveThemeId}
+          onUpdateTheme={handleUpdateTheme}
+          onDeleteTheme={handleDeleteTheme}
+        />
+        <ThemeForm onAddTheme={handleAddTheme} />
         <main>
           <h2>Color Cards Overview</h2>
           {/* condition ? valueIfTrue : valueIfFalse */}
@@ -183,6 +209,7 @@ const contrastResult = await checkContrast(updatedColor);
                   contrastText={color.contrastText}
                   onDelete={handleDeleteColor}
                   onEdit={handleEditColor}
+                  contrastResult={color.contrastResult}
                 />
               ))
             )}

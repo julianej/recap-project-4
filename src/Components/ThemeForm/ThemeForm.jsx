@@ -3,16 +3,18 @@ import { useState } from "react";
 export default function ThemeForm({ onAddTheme }) {
   const [themeName, setThemeName] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
+function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!themeName.trim()) {
-      return;
-    }
+  const name = themeName.trim();
 
-    onAddTheme(themeName);
-    setThemeName("");
+  if (!name) {
+    return;
   }
+
+  onAddTheme(name);
+  setThemeName("");
+}
 
   return (
     <form onSubmit={handleSubmit}>
