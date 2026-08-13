@@ -28,11 +28,11 @@ export default function Color({
   return (
     <div className="color-card" style={{ backgroundColor: hex }}>
         <div className="color-info-wrapper">
-        <h2 className="color-hex color-card-headline">{hex}</h2>
-        <p className="color-role" style={{ color: contrastText }}>{role}</p>
-        <p className="color-contrast-text" style={{ color: contrastText }}>
-          {contrastText}
-        </p>
+          <h2 className="color-hex color-card-headline">{hex}</h2>
+          <p className="color-role" style={{ color: contrastText }}>{role}</p>
+          <p className="color-contrast-text" style={{ color: contrastText }}>
+            {contrastText}
+          </p>
       </div>
        {contrastResult && (
           // Only render the <p> if contrastResult exists.

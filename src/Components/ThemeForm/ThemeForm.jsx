@@ -17,8 +17,8 @@ function handleSubmit(event) {
 }
 
   return (
-      <div className="new-theme-wrapper">
-        <form className="form-add-theme" onSubmit={handleSubmit}>
+      <div className="theme-new-wrapper">
+        <form className="add-theme-fomr" onSubmit={handleSubmit}>
           <label htmlFor="theme-name">Create New Theme</label>
 
           <input

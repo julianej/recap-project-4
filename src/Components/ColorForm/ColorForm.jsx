@@ -42,7 +42,7 @@ function handleSubmit(event) {
 
 
    return (
-  <form className="color-form" onSubmit={handleSubmit}>
+  <form className="add-color-form" onSubmit={handleSubmit}>
 
     <h2>
       {color ? "Edit Color Card" : "Add a Color Card"}
@@ -75,37 +75,37 @@ function handleSubmit(event) {
               onChange={handleChange}
               placeholder="#ff0000"
             />
-       </div>
-        <div className="input-group-wrapper">
-          <ColorInput
-            label="New Contrast"
-            id="contrast-color"
-            name="contrastText"
-            type="color"
-            value={newColor.contrastText}
-            onChange={handleChange}
-          />
+        </div>
+          <div className="input-group-wrapper">
+            <ColorInput
+              label="New Contrast"
+              id="contrast-color"
+              name="contrastText"
+              type="color"
+              value={newColor.contrastText}
+              onChange={handleChange}
+            />
 
-          <ColorInput
-            label="Hex Contrast Text "
-            id="contrast-text"
-            name="contrastText"
-            value={newColor.contrastText}
-            onChange={handleChange}
-            placeholder="#ffffff"
-          />
-      </div>
+            <ColorInput
+              label="Hex Contrast Text "
+              id="contrast-text"
+              name="contrastText"
+              value={newColor.contrastText}
+              onChange={handleChange}
+              placeholder="#ffffff"
+            />
+        </div>
 
-      <button 
-       // make the button/submit reusable
-       // show cancel only when this condition && is true.
-      type="submit">
-        {color ? "Save" : "Add color"}</button> 
-        {color && (
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
-          )}
+        <button 
+        // make the button/submit reusable
+        // show cancel only when this condition && is true.
+        type="submit">
+          {color ? "Save" : "Add color"}</button> 
+          {color && (
+            <button type="button" onClick={onCancel}>
+              Cancel
+            </button>
+            )}
          </div>
     </form>
   )}
