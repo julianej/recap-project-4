@@ -42,29 +42,30 @@ function handleSubmit(event) {
 
 
    return (
-  <form onSubmit={handleSubmit}>
+  <form className="color-form" onSubmit={handleSubmit}>
 
     <h2>
       {color ? "Edit Color Card" : "Add a Color Card"}
     </h2>
+    <div className="color-wrapper">
 
-       <ColorInput
-        label="Role"
-        id="role"
-        name="role"
-        value={newColor.role}
+          <ColorInput
+            label="Colour Role"
+            id="role"
+            name="role"
+            value={newColor.role}
 
-        onChange={handleChange}
-      />
-
-      <ColorInput
-        label="Hex Value"
-        id="hex-color"
-        name="hex"
-        type="color"
-        value={newColor.hex}
-        onChange={handleChange}
-      />
+            onChange={handleChange}
+          />
+      <div className="input-group-wrapper">
+          <ColorInput
+            label="New Colour"
+            id="hex-color"
+            name="hex"
+            type="color"
+            value={newColor.hex}
+            onChange={handleChange}
+          />
 
       <ColorInput
         label="Hex Value Color"
@@ -74,9 +75,10 @@ function handleSubmit(event) {
         onChange={handleChange}
         placeholder="#ff0000"
       />
-
+</div>
+    <div className="input-group-wrapper">
       <ColorInput
-        label="Contrast Text"
+        label="New Contrast"
         id="contrast-color"
         name="contrastText"
         type="color"
@@ -85,13 +87,14 @@ function handleSubmit(event) {
       />
 
        <ColorInput
-        label="Contrast Text Color"
+        label="Hex Contrast Text "
         id="contrast-text"
         name="contrastText"
         value={newColor.contrastText}
         onChange={handleChange}
         placeholder="#ffffff"
       />
+      </div>
 
       <button 
        // make the button/submit reusable
@@ -103,5 +106,6 @@ function handleSubmit(event) {
             Cancel
           </button>
           )}
+         </div>
     </form>
   )}

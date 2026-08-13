@@ -33,9 +33,10 @@ export default function ThemeSelector({
 
   return (
     <>
+    <div className="theme-select-wrapper">
       {!isEditing ? (
         <>
-          <label htmlFor="theme-select">Theme</label>
+          <label htmlFor="theme-select">Choose a Theme</label>
 
           <select
             id="theme-select"
@@ -49,6 +50,7 @@ export default function ThemeSelector({
             ))}
           </select>
 
+    
            <button
             type="button"
             onClick={handleEdit}
@@ -68,7 +70,7 @@ export default function ThemeSelector({
       ) :(
         <>
           <label htmlFor="theme-name">
-            Theme name
+            My new Theme name
           </label>
 
           <input
@@ -92,6 +94,7 @@ export default function ThemeSelector({
           </button>
         </>
       )}
+      </div>
     </>
   );
 }

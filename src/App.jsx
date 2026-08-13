@@ -11,13 +11,14 @@ import "./App.css";
 
 function App() {
 
-// AUFGABE 01
+// --------- CREATE REACT STATE  ------- AUFGABE 01
 // creates a React state variable.
 // colors      → current array value, state that can change
 // setColors   → function to change the value
 // const [colors, setColors] = useState(() => {
 
- // AUFGABE 01 + 05
+
+// --------- USE LOCAL STORAGE  ------- AUFGABE 01 + 05
 // const [colors, setColors] = useLocalStorageState("colors", { defaultValue: initialColors });  
 
 const [themes, setThemes] = useLocalStorageState("themes", {
@@ -31,6 +32,7 @@ const [themes, setThemes] = useLocalStorageState("themes", {
 });
 
 
+// --------- ACTIVE THEME EDIT & DELETE  ------- AUFGABE 07
 const [activeThemeId, setActiveThemeId] = useState("default");
 // Find the currently selected theme
 // const found = array.find( (element) => element.id === 10);
@@ -39,7 +41,10 @@ const activeTheme = themes.find((theme) =>
 //if nothing is found, use the first theme in the array; undefined ?? themes[0]
 ?? themes[0];
 
-// AUFGABE 07
+console.log(activeTheme, activeThemeId);
+console.log(activeThemeId, "active theme ID");
+
+// --------- HANDLE ADD THEME  -------
 function handleAddTheme(name) {
   const newTheme = {
     id: uid(),
@@ -55,18 +60,20 @@ function handleAddTheme(name) {
   setActiveThemeId(newTheme.id);
 }
 
+// --------- HANDLE DELETE -------
 function handleDeleteTheme(id) {
-    if (id === "default") return;
+    // if (id === "default") return;
 
     setThemes((themes) =>
         themes.filter((theme) => theme.id !== id)
     );
 
-    if (id === activeThemeId) {
-        setActiveThemeId("default");
-    }
+    // if (id === activeThemeId) {
+    //     setActiveThemeId("default");
+    // }
 }
 
+// --------- HANDLE UPDATE -------
 function handleUpdateTheme(id, newName) {
   setThemes((themes) =>
     themes.map((theme) =>
@@ -80,7 +87,7 @@ function handleUpdateTheme(id, newName) {
   );
 }
 
-
+// --------- HANDLE CONTRAST-------
 async function checkContrast(color) {
   try {
     const response = await fetch(
@@ -104,8 +111,7 @@ async function checkContrast(color) {
   }
 }
 
-
-// AUFGABE 02
+// --------- HANDLE ADD COLOUR ------- // AUFGABE 02
   async function handleAddColor(newColor) {
       const contrastResult = await checkContrast(newColor);
 
@@ -132,7 +138,7 @@ async function checkContrast(color) {
   );
 }
 
-// AUFGABE 03
+// --------- HANDLE DELETE COLOUR ------- // AUFGABE 03
 
 // function handleDeleteColor(id) {
 //   setThemes((themes) => {
@@ -157,7 +163,7 @@ async function checkContrast(color) {
   );
 }
 
-// AUFGABE 04
+// --------- HANDLE EDIT COLOUR ------- // AUFGABE 04
 async function handleEditColor(updatedColor) {
 const contrastResult = await checkContrast(updatedColor);
 
@@ -180,8 +186,6 @@ const contrastResult = await checkContrast(updatedColor);
     )
   );
 }
-
-
 
   return (
     <>

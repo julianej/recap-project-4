@@ -3,6 +3,7 @@ https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
 @import url("./Components/ColorForm/ColorForm.css");
+@import url("./Components/ThemeSelector/ThemeSelector.css");
 
 /*
   1. Use a more-intuitive box-sizing model.
@@ -45,7 +46,8 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+  font: caption;
+  height: 3rem;
 }
 /*
   7. Avoid text overflows
