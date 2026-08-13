@@ -88,6 +88,7 @@ function handleUpdateTheme(id, newName) {
 }
 
 // --------- HANDLE CONTRAST-------
+
 async function checkContrast(color) {
   try {
     const response = await fetch(
@@ -100,20 +101,24 @@ async function checkContrast(color) {
         body: JSON.stringify({
           colors: [color.hex, color.contrastText],
         }),
-      });
+      }
+    );
 
     const result = await response.json();
+
+    console.log("contrastResult:", result);
+
     return result;
 
   } catch (error) {
-    console.error(error);
+    console.error("Contrast check failed:", error);
     return null;
   }
 }
 
 // --------- HANDLE ADD COLOUR ------- // AUFGABE 02
   async function handleAddColor(newColor) {
-      const contrastResult = await checkContrast(newColor);
+  const contrastResult = await checkContrast(newColor);
 
   setThemes((themes) =>
     // themes is an array of theme objects.
@@ -165,24 +170,23 @@ async function checkContrast(color) {
 
 // --------- HANDLE EDIT COLOUR ------- // AUFGABE 04
 async function handleEditColor(updatedColor) {
-const contrastResult = await checkContrast(updatedColor);
+  const contrastResult = await checkContrast(updatedColor);
 
   setThemes((themes) =>
     themes.map((theme) =>
-      // Find the active theme === is it this ?
       theme.id === activeThemeId
-        ? { ...theme,
-          // update array colors with map
-          colors: theme.colors.map((color) =>
-            // find the color being edited
-             color.id === updatedColor.id
         ? {
-            ...updatedColor,
-            contrastResult,
+            ...theme,
+            colors: theme.colors.map((color) =>
+              color.id === updatedColor.id
+                ? {
+                    ...updatedColor,
+                    contrastResult,
+                  }
+                : color
+            ),
           }
-        : color
-    ),}
-    : theme
+        : theme
     )
   );
 }

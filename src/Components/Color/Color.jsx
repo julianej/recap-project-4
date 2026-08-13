@@ -18,6 +18,13 @@ export default function Color({
   // const [showConfirmation, setShowConfirmation] = useState(false);
   const [activeAction, setActiveAction] = useState(null);
 
+  const contrastMessage =
+  contrastResult?.overall === "Yup"
+    ? "Contrast is good"
+    : contrastResult?.overall === "Kinda"
+      ? "Contrast is kinda ok"
+      : "Contrast is a nope";
+
   return (
     <div className="color-card" style={{ backgroundColor: hex }}>
         <div className="color-info-wrapper">
@@ -30,12 +37,10 @@ export default function Color({
        {contrastResult && (
           // Only render the <p> if contrastResult exists.
         <p>
-          {contrastResult.overall === "Yup"
-            ? "Contrast is Kinda ok"
-            : "Contrast is a Nope"}
-          {" "}({contrastResult.contrast}:1)
+            {contrastMessage} ({contrastResult?.contrast}:1)
         </p>
       )}
+      
 
   <div className="card-button-wrapper">
       <button onClick={() => setActiveAction("delete")}>

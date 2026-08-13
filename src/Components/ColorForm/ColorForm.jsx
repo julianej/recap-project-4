@@ -57,43 +57,43 @@ function handleSubmit(event) {
 
             onChange={handleChange}
           />
-      <div className="input-group-wrapper">
+            <div className="input-group-wrapper">
+                <ColorInput
+                  label="New Colour"
+                  id="hex-color"
+                  name="hex"
+                  type="color"
+                  value={newColor.hex}
+                  onChange={handleChange}
+                />
+
+            <ColorInput
+              label="Hex Value Color"
+              id="hex"
+              name="hex"
+              value={newColor.hex}
+              onChange={handleChange}
+              placeholder="#ff0000"
+            />
+       </div>
+        <div className="input-group-wrapper">
           <ColorInput
-            label="New Colour"
-            id="hex-color"
-            name="hex"
+            label="New Contrast"
+            id="contrast-color"
+            name="contrastText"
             type="color"
-            value={newColor.hex}
+            value={newColor.contrastText}
             onChange={handleChange}
           />
 
-      <ColorInput
-        label="Hex Value Color"
-        id="hex"
-        name="hex"
-        value={newColor.hex}
-        onChange={handleChange}
-        placeholder="#ff0000"
-      />
-</div>
-    <div className="input-group-wrapper">
-      <ColorInput
-        label="New Contrast"
-        id="contrast-color"
-        name="contrastText"
-        type="color"
-        value={newColor.contrastText}
-        onChange={handleChange}
-      />
-
-       <ColorInput
-        label="Hex Contrast Text "
-        id="contrast-text"
-        name="contrastText"
-        value={newColor.contrastText}
-        onChange={handleChange}
-        placeholder="#ffffff"
-      />
+          <ColorInput
+            label="Hex Contrast Text "
+            id="contrast-text"
+            name="contrastText"
+            value={newColor.contrastText}
+            onChange={handleChange}
+            placeholder="#ffffff"
+          />
       </div>
 
       <button 
