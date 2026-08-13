@@ -42,66 +42,70 @@ function handleSubmit(event) {
 
 
    return (
-  <form onSubmit={handleSubmit}>
+  <form className="add-color-form" onSubmit={handleSubmit}>
 
     <h2>
       {color ? "Edit Color Card" : "Add a Color Card"}
     </h2>
+    <div className="color-wrapper">
 
-       <ColorInput
-        label="Role"
-        id="role"
-        name="role"
-        value={newColor.role}
+          <ColorInput
+            label="Colour Role"
+            id="role"
+            name="role"
+            value={newColor.role}
 
-        onChange={handleChange}
-      />
+            onChange={handleChange}
+          />
+            <div className="input-group-wrapper">
+                <ColorInput
+                  label="New Colour"
+                  id="hex-color"
+                  name="hex"
+                  type="color"
+                  value={newColor.hex}
+                  onChange={handleChange}
+                />
 
-      <ColorInput
-        label="Hex Value"
-        id="hex-color"
-        name="hex"
-        type="color"
-        value={newColor.hex}
-        onChange={handleChange}
-      />
+            <ColorInput
+              label="Hex Value Color"
+              id="hex"
+              name="hex"
+              value={newColor.hex}
+              onChange={handleChange}
+              placeholder="#ff0000"
+            />
+        </div>
+          <div className="input-group-wrapper">
+            <ColorInput
+              label="New Contrast"
+              id="contrast-color"
+              name="contrastText"
+              type="color"
+              value={newColor.contrastText}
+              onChange={handleChange}
+            />
 
-      <ColorInput
-        label="Hex Value Color"
-        id="hex"
-        name="hex"
-        value={newColor.hex}
-        onChange={handleChange}
-        placeholder="#ff0000"
-      />
+            <ColorInput
+              label="Hex Contrast Text "
+              id="contrast-text"
+              name="contrastText"
+              value={newColor.contrastText}
+              onChange={handleChange}
+              placeholder="#ffffff"
+            />
+        </div>
 
-      <ColorInput
-        label="Contrast Text"
-        id="contrast-color"
-        name="contrastText"
-        type="color"
-        value={newColor.contrastText}
-        onChange={handleChange}
-      />
-
-       <ColorInput
-        label="Contrast Text Color"
-        id="contrast-text"
-        name="contrastText"
-        value={newColor.contrastText}
-        onChange={handleChange}
-        placeholder="#ffffff"
-      />
-
-      <button 
-       // make the button/submit reusable
-       // show cancel only when this condition && is true.
-      type="submit">
-        {color ? "Save" : "Add color"}</button> 
-        {color && (
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
-          )}
+        <button 
+        // make the button/submit reusable
+        // show cancel only when this condition && is true.
+        type="submit">
+          {color ? "Save" : "Add color"}</button> 
+          {color && (
+            <button type="button" onClick={onCancel}>
+              Cancel
+            </button>
+            )}
+         </div>
     </form>
   )}

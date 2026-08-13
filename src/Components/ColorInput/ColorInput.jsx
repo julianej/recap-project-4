@@ -9,16 +9,22 @@ export default function ColorInput({
 }) {
   return (
     <>
-      {label && <label htmlFor={id}>{label}</label>}
+       <div className={`input-wrapper input-wrapper--${type}`}>
+          {label && (
+            <label htmlFor={id} >
+              {label}
+            </label>
+          )}
 
-      <input
-        type={type}
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
+          <input
+            type={type}
+            id={id}
+            name={name}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+          />
+    </div>
     </>
   );
 }

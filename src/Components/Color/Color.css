@@ -1,16 +1,31 @@
+.add-color-form {
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 2rem 0 1rem 0;
+}
+
 .color-card {
-  margin: 0px 10px;
   padding: 5px;
+  padding: 2rem;
+  border-radius: 0.5rem;
 }
 
 .color-card-headline {
   display: inline;
   padding: 2px 6px;
-  background: black;
-  color: white;
+  /* background: black;
+  color: white; */
 }
 
+.color-info-wrapper {
+  border: 1px solid black;
+  margin-bottom: 1rem;
+}
 
 .color-contrast-check {
   background-color: #fff;
+}
+
+.card-button-wrapper {
+  padding-top: 1rem;
 }

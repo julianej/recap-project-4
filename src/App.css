@@ -2,3 +2,21 @@ body {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   padding: 10px;
 }
+
+h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  line-height: 6rem;
+}
+
+h2 {
+    text-transform: uppercase;
+    line-height: 5rem;}
+
+select,
+button {
+    border: 1px solid black;
+    border-radius: 0.6rem;
+    background-color: transparent;
+    padding: 0.6rem;
+}

@@ -1,3 +1,42 @@
-form {
-    padding: 5rem 0;
+ form {   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    padding: 2rem 1rem;
+    margin: 2rem 0 1rem 0;
+}
+
+label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding-right: 1rem;
+    font-weight: 600;
+    flex: 1;
+}
+
+.input-group-wrapper {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 2;
+}
+
+.input-wrapper input {
+    flex: 1;
+    min-width: 0;
+    margin: 0.5rem 0 1.5rem 0;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    color: black;
+    height: 3rem;
+    width: auto;
 }
